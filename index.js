@@ -61,7 +61,7 @@ const server = http.createServer((req, res) =>{
         res.writeHead(404,{
             'content-type': 'text/html'
         });
-        res.end("<h1>No page Found.</h1>");
+        res.end("<h1>Http 404<br> No such pages are Found *_*</h1>");
     }
 });
 server.listen(8000, '127.0.0.1', () =>{
