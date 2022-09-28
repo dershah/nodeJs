@@ -38,15 +38,37 @@ const getDogPic = async () => {
 
     } catch (err) {
         console.log(err);
+        throw err;
     }
     return "2. Ready ('-')";
 
 }
 
-console.log("1. Will get the Dog Picture!");
+(async()=> {
+    try {
+        console.log("1. Will get the Dog Picture!");
+        const x = await getDogPic();
+        console.log(x);
+        console.log("3. Finish getting the Dog Picture!");
+    } catch (err) {
+        console.log("Error occured💥💥");
+    }
+})();
 
-getDogPic();
-console.log("3. Finish getting the Dog Picture!");
+
+//----------------old Promise way to return ---------------------------
+/*console.log("1. Will get the Dog Picture!");
+
+getDogPic()
+    .then(x => {
+        console.log(x);
+        console.log("3. Finish getting the Dog Picture!");
+    })
+    .catch(err=> {
+        console.log("Error occured💥💥")
+    })
+*/
+
 
 
 
