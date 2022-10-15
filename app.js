@@ -1,10 +1,31 @@
 const fs = require("fs");
 const express = require("express");
-const { stringify } = require("querystring");
+//const { stringify } = require("querystring"); 
+const morgan = require("morgan");
+
+const tourRouter = require("./routes/tourRoutes");
+const userRouter = require("./routes/userRoutes");
 
 const app = express();
+
+
+//------------------------------------------------Middlewares---------------------------------------------------------
+
+
+app.use(morgan("dev"));
+
 app.use(express.json());
 
+app.use((req, res, next) => {
+    console.log("testing Middleware");
+    next();
+})
+
+app.use((req, res, next) => {
+    req.requestTime = new Date().toISOString();
+    console.log(req.requestTime);
+    next();
+})
 
 /* app.get("/", (req, res)=> {
     res.status(200).json({
@@ -16,35 +37,29 @@ app.post("/post", (req, res)=> {
 });
  */
 
-const toursData = JSON.parse(fs.readFileSync(`${__dirname}/4-natours/after-section-06/dev-data/data/tours-simple.json`));
 
-app.get("/api/v1/tours", (req, res) => {
-     res.status(200). json({
-        status: "sucess",
-        result: toursData.length,
-        data:{
-            tours: toursData
-        }
-     }) 
-})
 
-app.post("/api/v1/tours", (req, res) => {
-    //console.log(req.body);
 
-    const newId = toursData.length;
-    //toursData[toursData.length-1].id + 1;
-    const newTours= Object.assign({id: newId}, req.body);
-    toursData.push(newTours);
-    fs.writeFile(`${__dirname}/4-natours/after-section-06/dev-data/data/tours-simple.json`, JSON.stringify(toursData), err =>{
-        res.status(201).json({
-            status: "sucess", 
-            data: {
-                tours: newTours
-            }
-        })
-    })
-})
+//----------------------------------------------Route Handlers-----------------------------------------------
 
+
+
+
+//------------------------------------------------------------Routes-------------------------------------------
+/* 
+app.get("/api/v1/tours", getTours)
+app.get("/api/v1/tours/:id", getTour)
+app.post("/api/v1/tours", createTour)
+app.patch("api/v1/tours/:id", updateTour)
+app.delete("api/v1/tours/:id", deleteTour)
+ */
+
+
+
+    app.use("/api/v1/tours", tourRouter);
+    app.use("/api/v1/users", userRouter);
+
+///----------------------------------------------------------------start Server-----------------------------------------
 const port = 3000;
 app.listen(port, () => {
     console.log(`App is running on Port ${port}...`);
