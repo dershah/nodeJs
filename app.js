@@ -1,7 +1,6 @@
-const fs = require("fs");
 const express = require("express");
-//const { stringify } = require("querystring"); 
 const morgan = require("morgan");
+
 
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -27,24 +26,6 @@ app.use((req, res, next) => {
     next();
 })
 
-/* app.get("/", (req, res)=> {
-    res.status(200).json({
-        massage: "Again Hello from the server Side", app: "natour"
-    });
-});
-app.post("/post", (req, res)=> {
-    res.send("For posting use this endpoint...");
-});
- */
-
-
-
-
-//----------------------------------------------Route Handlers-----------------------------------------------
-
-
-
-
 //------------------------------------------------------------Routes-------------------------------------------
 /* 
 app.get("/api/v1/tours", getTours)
@@ -54,13 +35,10 @@ app.patch("api/v1/tours/:id", updateTour)
 app.delete("api/v1/tours/:id", deleteTour)
  */
 
-
+ 
 
     app.use("/api/v1/tours", tourRouter);
     app.use("/api/v1/users", userRouter);
 
 ///----------------------------------------------------------------start Server-----------------------------------------
-const port = 3000;
-app.listen(port, () => {
-    console.log(`App is running on Port ${port}...`);
-});
+module.exports =app;
