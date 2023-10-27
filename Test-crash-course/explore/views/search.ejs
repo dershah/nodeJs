@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title><%= title %>||Expolre</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <img src="img/HAW_hamburg-e-learning.jpg" class="logo">
-          <li><a href="/">Home</a></li>
-          <li><a href="/courses">Courses</a></li>
-          <li><a href="/planer">Planer</a></li>
-          <li><a href="/search">Search</a></li>
-          <li><a href="/create">Create</a></li>
-        </ul>
-      </nav>
-    </header>
-    <h1>This is a Where we are going to search courses and Teachers</h1>
-    <p>This is a paragraph.</p>
+<%- include('./partials/head.ejs')%>
+
+<div class="div-event">
+  <% if (courses.length > 0){  %>
+    <% courses.forEach(course=>{ %>
+      <a class="single" href="course/<%= course._id %>">
+      <p class="title"><%= course.title %></p>
+        <p><%= course.description %></p>
+      </a>
+      <% })%>
+  <% } %>
+ </div>
+
 
   </body>
 </html>

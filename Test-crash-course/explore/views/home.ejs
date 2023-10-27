@@ -1,31 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title><%= title %> ||Expolre</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-  </head>
-  <body>
-    <header class="header">
-        
-        <img src="img/HAW_hamburg-e-learning.jpg" class="logo">
-        <div class="topNav" id="topNav">
-            <a href="/">Home</a>
-            <div class="dropdown">
-                <button class='dropbtn'>Course</button>
-                <div class="dropdown-content">
-                    <a href="/add-course">MY Courses</a>
-                    <a href="/all-courses">All Courses</a>
-                </div>
-            </div>
-            <a href="/planer">Planer</a>
-            <a href="/search">Search</a>
-            <a href="/create">Create</a>
-        </div>
-    </header>
+<%- include('./partials/head.ejs')%>
     <section class="sec-content">
       <h1><%= title %></h1>
       <div class="div-event">
@@ -56,4 +29,5 @@
 
 </script>
   </body>
+  <%- include('./partials/footer.ejs')%>
 </html> 

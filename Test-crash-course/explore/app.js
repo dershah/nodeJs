@@ -22,30 +22,15 @@ app.set('view engine','ejs');
 //middleware & Static Fields
 
 app.use(morgan('dev'));
+app.use(express.urlencoded({extended:true}));
 app.use(express.static('./public'));
 
 app.use((req, res, next)=>{
     console.log("Hello from Middleware 🖐️");
     next();
 });
-
-app.get('/add-course', (req, res)=>{
-    const course = new Course({
-        title: 'Discrete Mathematics',
-        description: 'Introdution to Mathematic 101'
-    });
-    course.save()
-    .then((result) =>{
-        res.send(result);
-    })
-    .catch((err) => console.log(err));
-});
 app.get('/all-courses', (req, res)=>{
-    Course.find()
-    .then((result) =>{
-        res.send(result);
-    })
-    .catch((err) => console.log(err));
+    res.redirect('/search');
 });
 
 
@@ -58,6 +43,7 @@ app.get('/', (req, res)=>{
     res.render('home',{title:'Home', contents});
 });
 
+
 app.get('/courses', (req, res)=>{
     res.render('courses',{title:'Courses'});
 });
@@ -67,9 +53,32 @@ app.get('/planer', (req, res)=>{
 });
 
 app.get('/search', (req, res)=>{
-    res.render('search', {title:'Search'});
+    Course.find()
+    .then((result) =>{
+        res.render('search',{title:"Search", courses: result});
+    })
+    .catch((err) => console.log(err));
+    
 });
 
+// create courses(POST Method)
+app.post('/search',(req, res)=>{
+    const course= new Course(req.body);
+    course.save()
+    .then((result) =>{
+        res.redirect('/search');
+    })
+    .catch((err) => console.log(err));
+});
+
+app.get('/course/:id', (req, res)=> {
+    const id= req.params.id;
+    Course.findById(id)
+    .then(result=>{
+        console.log(result);
+        res.render('details', {course:result, title:"Course Detail"});
+    }).catch(err=> console.log(err));
+});
 app.get('/create', (req, res)=>{
     res.render('create', {title:'Create'});
 });
