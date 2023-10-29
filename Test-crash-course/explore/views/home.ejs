@@ -1,33 +1,10 @@
 <%- include('./partials/head.ejs')%>
-    <section class="sec-content">
-      <h1><%= title %></h1>
-      <div class="div-event">
-        <% if (contents.length > 0){  %>
-        <% contents.forEach(content=>{ %>
-        <p class="title"><%= content.title %></p>
+  
+    <div class="div-event">
+      <p><%= JSON.parse(value).contents %></p>
+      <p><%= value%></p>
+     </div>
 
-          <% if(content.content.length > 0){  %>
-          <% content.content.forEach((item)=>{ %>
-          <p><%= item %></p>
-          <%  })%>
-          <%}  %>
-
-        <%  })%>
-        <%}  %>
-       </div>
-    </section>
-<script>
-  function show(){
-    var course= document.getElementById('course');
-    if(course.style.display == 'hidden'){
-      course.style.display == 'block'
-    } else{
-      course.style.display == 'hidden'
-    }
-     
-  }
-
-</script>
   </body>
   <%- include('./partials/footer.ejs')%>
 </html> 
